@@ -2,8 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+String apiKey = ''
 def localProperties = new Properties()
-localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+try {
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+    apiKey = localProperties['apiKey']
+} catch (Exception e) {
+    apiKey = System.getenv("google_maps_api_key")
+}
 
 android {
     compileSdkVersion 29
@@ -21,7 +27,7 @@ android {
 
     buildTypes {
         debug {
-            resValue("string", "google_maps_key", localProperties['apiKey'])
+            resValue("string", "google_maps_key", apiKey)
         }
         release {
             minifyEnabled false
