@@ -31,12 +31,3 @@ jobs:
         with:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
-      - name: Add APK to repository
-        run: |
-          mkdir apk
-          cp app/build/outputs/apk/debug/app-debug.apk apk/app.apk
-          git config user.email "shreyaspatilg@gmail.com"
-          git config user.name "Shreyas Patil"
-          git add apk
-          git commit -m "Added APK File"
-          git push origin master
